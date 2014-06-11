@@ -1,24 +1,39 @@
 package com.tehmou.rxbookapp;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.Arrays;
+
+import dagger.ObjectGraph;
+
 
 public class MainActivity extends ActionBarActivity {
+
+    private ObjectGraph objectGraph;
+
+    public ObjectGraph getObjectGraph() {
+        return objectGraph;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Object[] modules = Arrays.asList(new BookModule()).toArray();
+        objectGraph = ObjectGraph.create(modules);
+
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
+            Fragment bookFragment = new BookFragment();
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new BookFragment())
+                    .add(R.id.container, bookFragment)
                     .commit();
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

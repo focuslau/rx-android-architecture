@@ -1,14 +1,16 @@
 package com.tehmou.rxbookapp;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.tehmou.rxbookapp.data.DataStore;
+import com.tehmou.rxbookapp.utils.InjectingFragment;
 import com.tehmou.rxbookapp.viewmodels.BookViewModel;
+
+import javax.inject.Inject;
 
 import rx.android.schedulers.AndroidSchedulers;
 import rx.util.functions.Action1;
@@ -16,14 +18,17 @@ import rx.util.functions.Action1;
 /**
  * Created by ttuo on 19/03/14.
  */
-public class BookFragment extends Fragment {
+public class BookFragment extends InjectingFragment {
 
     private BookViewModel bookViewModel;
+
+    @Inject
+    DataStore dataStore;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bookViewModel = new BookViewModel(DataStore.getInstance(), "436346");
+        bookViewModel = new BookViewModel(dataStore, "436346");
     }
 
     @Override

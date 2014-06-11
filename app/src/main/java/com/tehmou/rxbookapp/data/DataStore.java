@@ -12,15 +12,6 @@ import rx.util.functions.Func1;
  * Created by ttuo on 19/03/14.
  */
 public class DataStore {
-    static private DataStore instance;
-
-    static public DataStore getInstance() {
-        if (instance == null) {
-            instance = new DataStore();
-        }
-        return instance;
-    }
-
     public DataStore() { }
 
     public Observable<Book> getBook(String bookId) {
