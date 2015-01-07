@@ -6,11 +6,13 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:1.0.0'
         classpath 'org.robolectric:robolectric-gradle-plugin:0.14.1'
+        classpath 'me.tatarka:gradle-retrolambda:2.4.0'
     }
 }
 
 apply plugin: 'com.android.application'
 apply plugin: 'robolectric'
+apply plugin: 'retrolambda'
 
 
 android {
@@ -18,7 +20,7 @@ android {
     buildToolsVersion "19.1.0"
 
     defaultConfig {
-        minSdkVersion 11
+        minSdkVersion 16
         targetSdkVersion 19
         versionCode 1
         versionName "1.0"
@@ -29,6 +31,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+retrolambda {
+    javaVersion JavaVersion.VERSION_1_6
 }
 
 dependencies {
