@@ -1,6 +1,6 @@
 package com.tehmou.rxbookapp.viewmodels;
 
-import com.tehmou.rxbookapp.data.DataStore;
+import com.tehmou.rxbookapp.data.DataLayer;
 import com.tehmou.rxbookapp.pojo.GitHubRepository;
 
 import java.util.List;
@@ -17,7 +17,7 @@ import rx.subscriptions.CompositeSubscription;
 public class RepositoriesViewModel {
     final private CompositeSubscription compositeSubscription = new CompositeSubscription();
 
-    final private DataStore dataStore;
+    final private DataLayer dataLayer;
     final private String search;
 
     final private Subject<List<GitHubRepository>, List<GitHubRepository>> repositories
@@ -27,13 +27,13 @@ public class RepositoriesViewModel {
         return repositories;
     }
 
-    public RepositoriesViewModel(final DataStore dataStore, final String search) {
-        this.dataStore = dataStore;
+    public RepositoriesViewModel(final DataLayer dataLayer, final String search) {
+        this.dataLayer = dataLayer;
         this.search = search;
     }
 
     public void subscribeToDataStore() {
-        compositeSubscription.add(dataStore.getGitHub(search).subscribe(repositories));
+        compositeSubscription.add(dataLayer.getGitHub(search).subscribe(repositories));
     }
 
     public void unsubscribeFromDataStore() {

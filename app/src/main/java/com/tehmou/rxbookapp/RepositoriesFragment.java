@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.tehmou.rxbookapp.data.DataStore;
+import com.tehmou.rxbookapp.data.DataLayer;
 import com.tehmou.rxbookapp.view.RepositoriesView;
 import com.tehmou.rxbookapp.viewmodels.RepositoriesViewModel;
 
@@ -21,7 +21,7 @@ public class RepositoriesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        repositoriesViewModel = new RepositoriesViewModel(DataStore.getInstance(), "fab");
+        repositoriesViewModel = new RepositoriesViewModel(DataLayer.getInstance(), "fab");
     }
 
     @Override
