@@ -21,7 +21,8 @@ public class RepositoriesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        repositoriesViewModel = new RepositoriesViewModel(DataLayer.getInstance(), "fab");
+        repositoriesViewModel = new RepositoriesViewModel(
+                ((MainActivity) getActivity()).getDataLayer(), "fab");
     }
 
     @Override
