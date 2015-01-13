@@ -5,6 +5,7 @@ import android.util.Log;
 import com.tehmou.rxbookapp.data.DataLayer;
 import com.tehmou.rxbookapp.pojo.GitHubRepository;
 import com.tehmou.rxbookapp.pojo.GitHubRepositorySearch;
+import com.tehmou.rxbookapp.view.RepositoriesView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,11 +37,13 @@ public class RepositoriesViewModel {
     }
 
     public RepositoriesViewModel(final DataLayer dataLayer, final String search) {
+        Log.v(TAG, "RepositoriesViewModel");
         this.dataLayer = dataLayer;
         this.search = search;
     }
 
     public void subscribeToDataStore() {
+        Log.v(TAG, "subscribeToDataStore");
         compositeSubscription.add(
                 dataLayer.getGitHubRepositorySearch(search)
                         .flatMap((repositorySearch) -> {
@@ -63,12 +66,14 @@ public class RepositoriesViewModel {
                                     }
                             );
                         })
-                        .doOnNext((repositories) ->
-                                Log.d(TAG, "Publishing " + repositories.size() + " repositories from the ViewModel"))
-                        .subscribe(repositories));
+                        .subscribe((repositories) -> {
+                            Log.d(TAG, "Publishing " + repositories.size() + " repositories from the ViewModel");
+                            RepositoriesViewModel.this.repositories.onNext(repositories);
+                        }));
     }
 
     public void unsubscribeFromDataStore() {
+        Log.v(TAG, "unsubscribeToDataStore");
         compositeSubscription.clear();
     }
 }
